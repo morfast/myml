@@ -33,4 +33,50 @@ class NN():
         return 1.0 / (1.0 + np.exp(-a))
 
 
+    def forward_pass(self, x):
+        """ input: x, propagates the input x forward through the net """
+        # hidden units
+        A_h = np.dot(x, self.W_h) + self.b_h
+        O_h = np.tanh(A_h)
+
+        # output units
+        A_o = np.dot(O_h, self.W_o) + self.b_o
+        O_o = self.sigmoid(A_o)
+
+        outputs = {
+            "A_h": A_h,
+            "A_o": A_o,
+            "O_h": O_h,
+            "O_o": O_o,
+        }
+
+        return outputs
+
+    def cost(self, y_true, y_predict, n_samples):
+        cost = (-1 / n_samples) * np.sum(y_true * np.log(y_predict) + \
+               (1-y_true) * (np.log(1 - y_predict)))
+        cost = np.squeeze(cost)
+
+        return cost
+
+    def backward_pass(self, x, y, n_samples, outputs):
+        pass
+
+    def update_weights(self, gradient, learning_rate):
+        pass
+
+
+    def train(self, x, y, n_iter, learning_rate):
+        pass
+
+    def predict(self, x):
+        pass
+
+
+
+
+
+
+
+
 
