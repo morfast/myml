@@ -1,8 +1,32 @@
 #!/usr/bin/env python3
 
 import sys
+import numpy as np
+
 from sklearn.datasets import make_blobs
 from sklearn.model_selection import train_test_split
+from scipy.stats import entropy as entropy2
+
+
+def entropy(freq):
+    f = np.array(freq)
+    s = np.sum(f)
+    f = np.divide(f, s)
+
+    result = 0.0
+    for felem in f:
+        if np.isclose(felem, 0.0):
+            continue
+        result += (-felem * np.log2(felem))
+    return result
+
+
+def test_entropy():
+    array = np.random.randint(10, size = 100)
+    r1 = entropy(array)
+    r2 = entropy2(array, base=2.0)
+    if (np.isclose(r1, r2)):
+        print("test_entropy pass")
 
 
 class myDesicionTree(object):
@@ -31,5 +55,6 @@ def test():
 
 
 if __name__ == '__main__':
-    test()
+    test_entropy()
+
 
